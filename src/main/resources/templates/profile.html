@@ -1,0 +1,243 @@
+<html xmlns:th="http//www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Socio Commune</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link rel="stylesheet" type="text/css" href="css/animate.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/line-awesome.css">
+<link rel="stylesheet" type="text/css" href="css/line-awesome-font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="lib/slick/slick.css">
+<link rel="stylesheet" type="text/css" href="lib/slick/slick-theme.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/responsive.css">
+</head>
+
+<body>
+	
+
+	<div class="wrapper">
+		
+
+
+		<header>
+			<div class="container">
+				<div class="header-data">
+					<div>
+						<a href="index.html" title=""></a>
+					</div><!--logo end-->
+					<div class="search-bar">
+						<form action="search">
+							<input type="text" name="search" placeholder="Search...">
+							<button type="submit"><i class="la la-search"></i></button>
+						</form>
+					</div><!--search-bar end-->
+					
+					<div class="menu-btn">
+						<a href="#" title=""><i class="fa fa-bars"></i></a>
+					</div><!--menu-btn end-->
+					<div class="user-account">
+						<div class="user-info">
+							<img src="images/logo1.png" alt="" width=30 height=30>
+							<a href="#" title="" th:text="${user.name}">  </a>
+						</div>
+						<div class="user-account-settingss ">
+						
+							<ul class="us-links">
+								<li><a href="profile-account-setting.html" title="">Account Setting</a></li>
+								<li><a href="#" title="">Privacy</a></li>
+								<li><a href="#" title="">Faqs</a></li>
+								<li><a href="#" title="">Terms &amp; Conditions</a></li>
+							</ul>
+							<h3 class="tc"><a href="/logout" title="">Logout</a></h3>
+						</div><!--user-account-settingss end-->
+					</div>
+				</div><!--header-data end-->
+			</div>
+		</header>
+
+		<section class="cover-sec">
+			<img src="images/added/cover.jpg" alt="">
+		</section>
+
+
+		<main>
+			<div class="main-section">
+				<div class="container">
+					<div class="main-section-data">
+						<div class="row">
+							<div class="col-lg-3 col-md-4 pd-left-none no-pd">
+								<div class="main-left-sidebar no-margin">
+									<div class="user-data full-width">
+										<div class="user-profile">
+											<div class="username-dt">
+												<div class="usr-pic">
+													<img src="images/logo1.png" alt="" width=100 height=105>
+												</div>
+											</div><!--username-dt end-->
+											<div class="user-specs">
+												<h3 th:text="${user.name}"></h3>
+												<span th:text="${user.type}"></span>
+											</div>
+										</div><!--user-profile end-->
+										<ul class="user-fw-status">
+											<li>
+												<h4>Following</h4>
+												<span><a href="/following"><b th:text="${user.followingcount}"></a></b></span>
+											</li>
+											<li>
+												<h4>Followers</h4>
+												<span><a href="/followers"><b th:text="${user.followercount}"></a></b></span>
+											</li>
+											<li>
+												<a href="#" title="">Edit Profile</a>
+											</li>
+										</ul>
+									</div><!--user-data end--><!--suggestions end--><!--tags-sec end-->
+								</div><!--main-left-sidebar end-->
+							</div>
+							<div class="col-lg-6 col-md-8 no-pd">
+								<div class="main-ws-sec">
+									<div class="post-topbar">
+										<div class="user-picy">
+											<img src="http://via.placeholder.com/100x100" alt="">
+										</div>
+										<div class="post-st">
+											<ul>
+											
+												<li><a class="post-jb active" href="#" title="">Post a Job</a></li>
+											</ul>
+										</div><!--post-st end-->
+									</div><!--post-topbar end-->
+									<div class="posts-section" th:each="post:${posts}">
+										<div class="post-bar">
+											<div class="post_topbar">
+												<div class="usy-dt">
+													<img src="images/logo1.png" alt="" width=50 height=50>
+													<div class="usy-name" style="padding-top: 15">
+														<h3 th:text="${post.userName}"></h3>
+													</div>
+												</div>
+												<div class="ed-opts">
+													<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>
+													<ul class="ed-options">
+														<li><a href="#" title="">Close</a></li>
+														<li><a href="#" title="">Hide</a></li>
+													</ul>
+												</div>
+											</div>
+											<div class="epi-sec">
+												<ul class="descp">
+												</ul>
+												<ul class="bk-links">
+													<li><a  th:href="@{'/chat?rec=' + ${post.userEmail}}"title=""><i class="la la-envelope"></i></a></li>
+												</ul>
+											</div>
+											<div class="job_descp">
+												<h3 th:text="${post.title}"></h3>
+												<ul class="job-dt">
+													<li><a href="#" title="" th:text="${post.type}">Full Time</a></li>
+													<li style="float:right;">₹ <span th:text="${post.salary}" ></span> (per Month)</li>
+												</ul>
+												<p th:text="${post.description}"></p>
+												<ul class="skill-tags">
+													<li><a href="#" title="" th:text="${post.skills}"></a></li>	
+												</ul>
+											</div>
+											<div class="job-status-bar">
+												<ul class="like-com">
+													<li>
+														<a href="javascript: void(0)" th:name="${post.id}" onClick="updateLike(this.name)" ><i class="la la-heart"></i>Likes <span th:text=${post.likes} th:id="${post.id}" > </span></a>
+													</li> 
+												</ul>
+											</div>
+										</div><!--post-bar end-->
+									</div><!--posts-section end-->
+								</div><!--main-ws-sec end-->
+							</div>
+						</div>
+					</div><!-- main-section-data end-->
+				</div> 
+			</div>
+		</main>
+
+
+
+
+
+
+		<div class="post-popup job_post">
+			<div class="post-project">
+				<h3>Post a job</h3>
+				<div class="post-project-fields">
+					<form action ="postjob" method="post">
+						<div class="row">
+							<div class="col-lg-12">
+								<input type="text" name="title" placeholder="Title">
+							</div>
+							<div class="col-lg-12">
+								<input type="text" name="skills" placeholder="Skills">
+							</div>
+							<div class="col-lg-6">
+								<div class="price-br">
+									<input type="text" name="salary" placeholder="Price">
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="inp-field">
+									<select name="job_type">
+										<option>Full Time</option>
+										<option>Part time</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-12">
+								<textarea name="description" placeholder="Description"></textarea>
+							</div>
+							<div class="col-lg-12">
+								<ul>
+									<li><button class="active" type="submit" value="post">Post</button></li>
+								</ul>
+							</div>
+						</div>
+					</form>
+				</div><!--post-project-fields end-->
+				<a href="#" title=""><i class="la la-times-circle-o"></i></a>
+			</div><!--post-project end-->
+		</div><!--post-project-popup end--><!--chatbox-list end-->
+
+	</div><!--theme-layout end-->
+
+
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/popper.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.mCustomScrollbar.js"></script>
+<script type="text/javascript" src="lib/slick/slick.min.js"></script>
+<script type="text/javascript" src="js/scrollbar.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+
+</body>
+<script>
+	function updateLike(id)
+	{
+		console.log(id)
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+			console.log(JSON.parse(this.responseText));
+			document.getElementById(id).innerHTML=JSON.parse(this.responseText)
+			//processMessages(JSON.parse(this.responseText));
+			}
+		};
+		var url = 'update-like/';
+        var params = '?id='+id;
+        xhttp.open('GET', url+params, true);
+		xhttp.send();
+	}
+	</script>
+</html>
